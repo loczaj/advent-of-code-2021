@@ -1,7 +1,6 @@
 import strutils, sequtils
-from sugar import `=>`
 
-let input = readFile("input02.txt").splitLines().map s => (s[0], parseInt $s[^1])
+let input = readFile("input02.txt").splitLines().mapIt (it[0], parseInt $it[^1])
 var distance, depth, aim = 0
 
 for (command, x) in input:
