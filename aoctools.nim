@@ -13,7 +13,7 @@ template forMap*(map: Map, body: untyped) =
   forArea(0, 0, high(map), high(map[0])):
     body
 
-proc count*[W, H, T](map: Map[W, H, T], predicate: proc(x: T): bool): int =
+proc count*[W, H, T](map: Map[W, H, T], predicate: proc(cell: T): bool): int =
   for row in map:
     result += row.toSeq.countIt predicate(it)
 
