@@ -15,7 +15,7 @@ for (_, x0, y0, x1, y1) in ylines:
   for x in min(x0, x1) .. max(x0, x1):
     inc map[x][y0]
 
-echo map.count x => x > 1
+echo map.count cell => cell > 1
 
 let downlines = input.filterIt (it[1] < it[3] and it[2] < it[4]) or (it[1] > it[3] and it[2] > it[4])
 let uplines = input.filterIt (it[1] < it[3] and it[2] > it[4]) or (it[1] > it[3] and it[2] < it[4])
@@ -30,4 +30,4 @@ for (_, x0, y0, x1, y1) in uplines:
   for x in min(x0, x1) .. max(x0, x1):
     inc map[x][y0 - x + min(x0, x1)]
 
-echo map.count x => x > 1
+echo map.count cell => cell > 1
