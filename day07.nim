@@ -22,4 +22,4 @@ for position in input:
   fuel3 += (dist3 + dist3 ^ 2) div 2
 
 echo fuel1
-echo if fuel2 < fuel3: fuel2 else: fuel3
+echo min(fuel2, fuel3)
