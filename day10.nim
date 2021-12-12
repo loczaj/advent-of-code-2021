@@ -34,18 +34,15 @@ for line in mitems(input):
   if not corrupted:
     var score = 0
     for ch in line.reversed:
+      score *= 5
       case ch:
         of '(':
-          score *= 5
           score += 1
         of '[':
-          score *= 5
           score += 2
         of '{':
-          score *= 5
           score += 3
         of '<':
-          score *= 5
           score += 4
         else:
           assert false
