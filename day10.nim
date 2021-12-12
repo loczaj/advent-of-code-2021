@@ -13,21 +13,21 @@ for line in mitems(input):
   for ch in line:
     case ch:
       of ')':
-          error += 3
-          corrupted = true
-          break
+        error += 3
+        corrupted = true
+        break
       of ']':
-          error += 57
-          corrupted = true
-          break
+        error += 57
+        corrupted = true
+        break
       of '}':
-          error += 1197
-          corrupted = true
-          break
+        error += 1197
+        corrupted = true
+        break
       of '>':
-          error += 25137
-          corrupted = true
-          break
+        error += 25137
+        corrupted = true
+        break
       else:
         discard
   
@@ -36,17 +36,17 @@ for line in mitems(input):
     for ch in line.reversed:
       case ch:
         of '(':
-            score *= 5
-            score += 1
+          score *= 5
+          score += 1
         of '[':
-            score *= 5
-            score += 2
+          score *= 5
+          score += 2
         of '{':
-            score *= 5
-            score += 3
+          score *= 5
+          score += 3
         of '<':
-            score *= 5
-            score += 4
+          score *= 5
+          score += 4
         else:
           assert false
     
