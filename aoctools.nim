@@ -42,6 +42,10 @@ iterator neighbours8*[W, H, T](map: Map[W, H, T], x0, y0: int): tuple[x, y: int]
     if neigb.x >= 0 and neigb.y >= 0 and neigb.x < H and neigb.y < W:
       yield neigb
 
+proc fill*[W, H, T](map: var Map[W, H, T], value: T): void =
+  forMap map:
+    map[x, y] = value
+
 proc count*[W, H, T](map: Map[W, H, T], predicate: proc(cell: T): bool): int =
   for row in map:
     result += row.toSeq.countIt predicate(it)
@@ -50,10 +54,10 @@ proc `+`*[W, H, T](a, b: sink Map[W, H, T]): Map[W, H, T] =
   forMap result:
     result[x, y] = a[x, y] + b[x, y]
 
-proc toStr*(map: Map): string =
+proc toStr*(map: Map, sep:string = " "): string =
   for row in map:
     for value in row:
-      result &= $value & " "
+      result &= $value & sep
     result &= "\n"
 
 proc grid*(data:string, sep:string = ""): seq[seq[string]] =
