@@ -1,7 +1,9 @@
-import strutils, sequtils, sugar, std/re
+import strutils, sequtils, sugar, std/re, options
 
 const directions4* = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 const directions8* = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (-1, -1), (1, -1)]
+
+### Map ###
 
 type
   Map*[W, H: static[int], T] =
@@ -60,6 +62,18 @@ proc toStr*(map: Map, sep:string = " "): string =
       result &= $value & sep
     result &= "\n"
 
+proc grid*(data:string, sep:string = ""): seq[seq[string]]
+
+proc initFromGrid*[W, H, T](data: string, parser: string -> T, sep:string = ""): Map[W, H, T] =
+  let grid = grid(data, sep)
+  assert high(grid) + 1 == H
+  for row in countup(0, H - 1):
+    assert high(grid[row]) + 1 == W
+    for col in countup(0, W - 1):
+      result[row][col] = parser(grid[row][col])
+
+### seq[seq[...]] ###
+
 proc grid*(data:string, sep:string = ""): seq[seq[string]] =
     if sep == "":
         return data.splitLines.mapIt(it.splitWhitespace)
@@ -71,10 +85,21 @@ proc ints*(data:string): seq[int] =
 proc intgrid*(data:string): seq[seq[int]] =
     data.splitLines.map(ints)
 
-proc initFromGrid*[W, H, T](data: string, parser: string -> T, sep:string = ""): Map[W, H, T] =
-  let grid = grid(data, sep)
-  assert high(grid) + 1 == H
-  for row in countup(0, H - 1):
-    assert high(grid[row]) + 1 == W
-    for col in countup(0, W - 1):
-      result[row][col] = parser(grid[row][col])
+proc `[]`*(image: seq[string]; x,y: int): char =
+  return image[y][x]
+
+proc `[]`*(image: seq[string]; x,y: int, default: char): char =
+  if x < 0 or y < 0 or x >= image.len or y >= image.len:
+    return default
+  else:
+    return image[y][x]
+
+proc `[]`*(image: var seq[string]; x,y: int): var char =
+  return image[y][x]
+
+proc `[]=`*(image: var seq[string]; x,y: int; value: char): void  =
+  image[y][x] = value
+
+proc toStr*(source: seq[string]): string =
+  for line in source:
+    result &= line & '\n'
