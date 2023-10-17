@@ -1,13 +1,5 @@
 import strutils, sequtils, std/strscans
-
-type
-  Map[W, H: static[int], T] =
-    array[0..W-1, array[0..H-1, T]]
-
-template forMap(m: Map, body: untyped) =
-  for x {.inject.} in 0 .. high m:
-    for y {.inject.} in 0 .. high m[0]:
-      body
+import aoctools
 
 type Board = object
   map: Map[5, 5, int]
